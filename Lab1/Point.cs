@@ -9,11 +9,11 @@ namespace Lab1
     class Point
     {
         public double X;
-        public double U;
-        public Point (double x, double u)
+        public double V;
+        public Point (double x, double v)
         {
             X = x;
-            U = u;
+            V = v;
         }
     }
 }
