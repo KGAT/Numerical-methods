@@ -8,6 +8,7 @@ namespace Lab1
 {
     class Point
     {
+        // most sucks
         public double X;
         public double U;
         public Point (double x, double u)
