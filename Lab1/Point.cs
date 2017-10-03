@@ -10,11 +10,11 @@ namespace Lab1
     {
         // most sucks
         public double X;
-        public double U;
-        public Point (double x, double u)
+        public double V;
+        public Point (double x, double v)
         {
             X = x;
-            U = u;
+            V = v;
         }
     }
 }
