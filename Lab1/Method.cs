@@ -24,11 +24,17 @@ namespace Lab1
        
 
 
-        public void Init(Point _currP, int _a, int _maxsteps, int _T, double _h, double _eps, double eBorder,
-            int _plus_corr_Step, int _minus_corr_Step) //Тихончук
+        public void Init(Point _currP, int _a, int _maxsteps, int _T, double _h, double _eps, double _eBorder,
+            int _plus_corr_Step, int _minus_corr_Step) //Сделано
         {
-            a = Math.Abs(a);
-
+            currP = _currP;
+            a = _a;
+            maxsteps = _maxsteps;
+            T = _T;
+            h = _h;
+            eps = _eps;
+            pluscorr_Step = _plus_corr_Step;
+            minuscorr_Step = _minus_corr_Step;
         }
 
         public void Start()
