@@ -9,7 +9,7 @@ namespace Lab1
     class Method
     {
         Point currP;
-        private int a; //параметр пропорциональности а
+        private double a; //параметр пропорциональности а
         private int maxsteps;//максимальное количество шагов
         private double T; //начальная температура
         private double h; //шаг
@@ -21,11 +21,13 @@ namespace Lab1
         private int step_counter; // Подсчёт шагов
         private int pluscorr_Step;
         private int minuscorr_Step;
+       
 
 
         public void Init(Point _currP, int _a, int _maxsteps, int _T, double _h, double _eps, double eBorder,
             int _plus_corr_Step, int _minus_corr_Step) //Тихончук
         {
+            a = Math.Abs(a);
 
         }
 
@@ -36,7 +38,7 @@ namespace Lab1
                 double _h = h; // тот h, который нужен для получения новой точки
                 Point newpoint = MakeStep(currP, h);
                 Point halfpoint = HalfPointM(currP, h);
-                double s = Math.Abs(GetS(halfpoint, newpoint));
+                double s = Math.Abs(GetS(newpoint, halfpoint)); // здесь поменял местами точки
                 double err_l = Math.Abs(Math.Pow(2, 2) * s);
                 double corr_v = GetVCorrect(currP, s);
                 if (s <= eps / (Math.Pow(2, 2)))
@@ -62,17 +64,18 @@ namespace Lab1
             }
         }
 
-        private double GetVCorrect(Point p, double s) //Гаврилов
+        private double GetVCorrect(Point p, double s) //Сделано
         {
-            return 1.0f;
+            return p.V + Math.Pow(2, 2) * s; 
         }
-        private double GetS(Point p1, Point p2)  //Гаврилов
+        private double GetS(Point p1, Point p2)  //Сделано  p2 - это Vn с двумя крышками , p1 - Vn
         {
-            return 1.0f;
+            return (p2.V-p1.V)/(2.0*2.0-1.0);
         }
-        private Point HalfPointM(Point p, double h) //Гаврилов
+        private Point HalfPointM(Point p, double h) //Сделано
         {
-            return new Point(0,0);
+            Point _p = MakeStep(p, h / 2.0);
+            return MakeStep(_p,h/2.0);
         }
 
         public bool NeedStop() //Кильдишев
@@ -86,19 +89,28 @@ namespace Lab1
         private Point MakeStep(Point p, double h) //Кильдишев
         {
             double pX = GetNextX(p.X, h);
-            double pV = GetNextU(p.X,p.V, h);
+            double pV = GetNextV(p.X,p.V, h);
             return new Point(pX, pV);
         }
-        private double GetNextX(double x, double h) //Тихончук
+        private double GetNextX(double x, double h) //Сделано
         {
-            return 1.0f;
+            return (x+h);
         }
 
-        private double GetNextU(double x, double u, double h) //Тихончук
+        private double GetNextV(double x, double v, double h) //Сделано
         {
-            return 1.0f;
+            if (v < 0)
+            {
+                return 0;
+            }
+            double F = f(x + h / 2.0, v + (h / 2.0) * f(x, v));
+            return v + h * F;
         }
-       
+
+        private double f(double x, double u)  //Вычисление правой части д.у
+        {
+            return (-1.0*a*(u-T));
+        }
 
         public List<InfoTable> GetMetodInfos() //сделано
         {
