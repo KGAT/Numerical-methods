@@ -40,7 +40,6 @@ namespace Lab1
         List<Point> copy; 
         private void button1_Click(object sender, EventArgs e)
         {
-            cartesianChart1.Series.Clear();
             Method RK = new Method();
             double V0 = Convert.ToDouble(textBox1.Text);
             Point p = new Point(0, V0);
@@ -140,6 +139,11 @@ namespace Lab1
             });
 
 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            cartesianChart1.Series.Clear();
         }
     }
 }
