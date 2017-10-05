@@ -50,7 +50,7 @@ namespace Lab1
                 Point halfpoint = HalfPointM(currP, h);
                 double s = Math.Abs(GetS(newpoint, halfpoint)); 
                 double err_l = Math.Abs(Math.Pow(2, 2) * s);
-                double corr_v = GetVCorrect(currP, s);
+                double corr_v = GetVCorrect(newpoint, s);
                 if (s <= eps / (Math.Pow(2, 2)))
                 {
                     currP = newpoint;
