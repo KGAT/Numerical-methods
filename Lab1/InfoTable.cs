@@ -30,7 +30,6 @@ namespace Lab1
             S = _S;
             err_loc = _err_loc;
             corr_V = _corr_V;
-           // res_V = _res_V;
             plus_corr_Step = _plus_corr_Step;
             minus_corr_Step = _minus_corr_Step;
         }

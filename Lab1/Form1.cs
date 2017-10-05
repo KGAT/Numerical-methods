@@ -54,44 +54,56 @@ namespace Lab1
             RK.Start();
 
             dataGridView1.RowCount = RK.GetMetodInfos().Count;
-            dataGridView1.ColumnCount = 11;
+            dataGridView1.ColumnCount = 14;
 
             int n = RK.GetMetodInfos().Count;
             dataGridView1.Columns[0].HeaderText = "№";
             for (int i = 0; i < n; i++)
                 dataGridView1[0, i].Value = i;
 
-            dataGridView1.Columns[1].HeaderText = "h_i-1";
+            dataGridView1.Columns[1].HeaderText = "h_i-1"; //
             for (int i = 0; i < n; i++)
                 dataGridView1[1, i].Value = RK.GetMetodInfos()[i].integr_step;
 
-            dataGridView1.Columns[2].HeaderText = "x_i";
+            dataGridView1.Columns[2].HeaderText = "x_i"; //
             for (int i = 0; i < n; i++)
                 dataGridView1[2, i].Value = RK.GetMetodInfos()[i].point.X;
 
-            dataGridView1.Columns[3].HeaderText = "v_i";
+            dataGridView1.Columns[3].HeaderText = "v_i";//
             for (int i = 0; i < n; i++)
                 dataGridView1[3, i].Value = RK.GetMetodInfos()[i].point.V;
 
-            dataGridView1.Columns[6].HeaderText = "S";
+            dataGridView1.Columns[6].HeaderText = "v_удв";//
             for (int i = 0; i < n; i++)
-                dataGridView1[6, i].Value = RK.GetMetodInfos()[i].S;
+                dataGridView1[6, i].Value = RK.GetMetodInfos()[i].half_V;
 
-            dataGridView1.Columns[7].HeaderText = "e";
+            dataGridView1.Columns[7].HeaderText = "v_i - v_удв";//
             for (int i = 0; i < n; i++)
-                dataGridView1[7, i].Value = RK.GetMetodInfos()[i].err_loc;
+                dataGridView1[7, i].Value = RK.GetMetodInfos()[i].dV;
 
-            dataGridView1.Columns[8].HeaderText = "v_corr";
+            dataGridView1.Columns[8].HeaderText = "v_итог";//
             for (int i = 0; i < n; i++)
-                dataGridView1[8, i].Value = RK.GetMetodInfos()[i].corr_V;
+                dataGridView1[8, i].Value = RK.GetMetodInfos()[i].point.V;
 
-            dataGridView1.Columns[9].HeaderText = "Up_step";
+            dataGridView1.Columns[9].HeaderText = "S";//
             for (int i = 0; i < n; i++)
-                dataGridView1[9, i].Value = RK.GetMetodInfos()[i].plus_corr_Step;
+                dataGridView1[9, i].Value = RK.GetMetodInfos()[i].S;
 
-            dataGridView1.Columns[10].HeaderText = "Down_step";
+            dataGridView1.Columns[10].HeaderText = "e";//
             for (int i = 0; i < n; i++)
-                dataGridView1[10, i].Value = RK.GetMetodInfos()[i].minus_corr_Step;
+                dataGridView1[10, i].Value = RK.GetMetodInfos()[i].err_loc;
+
+            dataGridView1.Columns[11].HeaderText = "v_corr";//
+            for (int i = 0; i < n; i++)
+                dataGridView1[11, i].Value = RK.GetMetodInfos()[i].corr_V;
+
+            dataGridView1.Columns[12].HeaderText = "Up_step";//
+            for (int i = 0; i < n; i++)
+                dataGridView1[12, i].Value = RK.GetMetodInfos()[i].plus_corr_Step;
+
+            dataGridView1.Columns[13].HeaderText = "Down_step";//
+            for (int i = 0; i < n; i++)
+                dataGridView1[13, i].Value = RK.GetMetodInfos()[i].minus_corr_Step;
             cartesianChart1.Series.Add(new LineSeries
             {
                 Title = "Численное решение",
