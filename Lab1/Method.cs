@@ -15,7 +15,7 @@ namespace Lab1
         private double h; //шаг
         private double eps; //контроль шага
         private double eBorder; //контроль выхода на границу
-        //Вообще ещё нужно, чтобы в ходе работы метода он выводил сразу в таблицу необходимые данные
+        
         private List<Point> points= new List<Point>(); //массив точек для отрисовки графика
         private List<InfoTable> table_data= new List<InfoTable>(); //массив данных таблицы
         private int step_counter; // Подсчёт шагов
@@ -24,7 +24,7 @@ namespace Lab1
        
 
 
-        public void Init(Point _currP, int _a, int _maxsteps, int _T, double _h, double _eps, double _eBorder,
+        public void Init(Point _currP, int _a, int _maxsteps, double _T, double _h, double _eps, double _eBorder,
             int _plus_corr_Step, int _minus_corr_Step) //Сделано
         {
             currP = _currP;
@@ -33,8 +33,12 @@ namespace Lab1
             T = _T;
             h = _h;
             eps = _eps;
+            eBorder = _eBorder;
             pluscorr_Step = _plus_corr_Step;
             minuscorr_Step = _minus_corr_Step;
+            points.Add(currP);
+            table_data.Add(new InfoTable(step_counter,h,currP,0,0,0,0,0,0,0));
+            step_counter++;
         }
 
         public void Start()
@@ -44,7 +48,7 @@ namespace Lab1
                 double _h = h; // тот h, который нужен для получения новой точки
                 Point newpoint = MakeStep(currP, h);
                 Point halfpoint = HalfPointM(currP, h);
-                double s = Math.Abs(GetS(newpoint, halfpoint)); // здесь поменял местами точки
+                double s = Math.Abs(GetS(newpoint, halfpoint)); 
                 double err_l = Math.Abs(Math.Pow(2, 2) * s);
                 double corr_v = GetVCorrect(currP, s);
                 if (s <= eps / (Math.Pow(2, 2)))
@@ -64,7 +68,7 @@ namespace Lab1
                     currP = newpoint;
                     points.Add(newpoint);
                 }
-                table_data.Add(new InfoTable(step_counter, _h, currP, halfpoint.V, currP.V - halfpoint.V,
+                table_data.Add(new InfoTable(step_counter, _h, currP, halfpoint.V,err_l, currP.V - halfpoint.V,
                     s, corr_v,  pluscorr_Step, minuscorr_Step));
                 step_counter++;
             }
@@ -87,7 +91,7 @@ namespace Lab1
         public bool NeedStop() //Кильдишев
         {
             bool stop = false;
-            if (step_counter >= maxsteps) //Вот тут не до конца, нужно понять, как правильно сделать
+            if (step_counter >= maxsteps || currP.V < T + eBorder) 
                 stop = !stop;
             return stop;
         }
@@ -105,16 +109,14 @@ namespace Lab1
 
         private double GetNextV(double x, double v, double h) //Сделано
         {
-            if (v < 0)
-            {
-                return 0;
-            }
+            
             double F = f(x + h / 2.0, v + (h / 2.0) * f(x, v));
             return v + h * F;
         }
 
         private double f(double x, double u)  //Вычисление правой части д.у
         {
+            //return 2u;
             return (-1.0*a*(u-T)); // 2u; для проверки на домащшних примерах
         }
 

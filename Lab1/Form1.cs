@@ -24,39 +24,107 @@ namespace Lab1
         public Form1()
         {
             InitializeComponent();
+
+            cartesianChart1.AxisY.Add(new Axis
+            {
+                Title = "Температура тела",
+            });
+            cartesianChart1.AxisX.Add(new Axis
+            {
+                Title = "Время"
+            });
+
+            
+
+        }
+        List<Point> copy; 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            cartesianChart1.Series.Clear();
             Method RK = new Method();
-            Point p = new Point(1,1);
-            RK.Init(p, 1, 5000,2, 0.001, 0.0001, 0.01, 0, 0);
+            double V0 = Convert.ToDouble(textBox1.Text);
+            Point p = new Point(0, V0);
+            int _a = Convert.ToInt32(textBox3.Text);
+            int _maxsteps = Convert.ToInt32(textBox6.Text);
+            double _T = Convert.ToDouble(textBox2.Text);
+            double _h = Convert.ToDouble(textBox4.Text);
+            double _eps = Convert.ToDouble(textBox5.Text);
+            double _eBorder = Convert.ToDouble(textBox7.Text);
+            RK.Init(p, _a, _maxsteps, _T, _h, _eps, _eBorder, 0, 0);
             RK.Start();
 
-            dataGridView1.RowCount = 10;
+            dataGridView1.RowCount = RK.GetMetodInfos().Count;
             dataGridView1.ColumnCount = 10;
-            
-            /*
-             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-             dataGridView1.AutoResizeColumns();
-             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-             dataGridView1.AutoResizeRows(DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders);*/
 
-            int n = 9;
-
-            dataGridView1[0, 0].Value = "№";
-            for (int i = 1; i <= n; i++)
+            int n = RK.GetMetodInfos().Count;
+            dataGridView1.Columns[0].HeaderText = "№";
+            for (int i = 0; i < n; i++)
                 dataGridView1[0, i].Value = i;
 
-            dataGridView1[1, 0].Value = "h";
+            dataGridView1.Columns[1].HeaderText = "h_i-1";
             for (int i = 0; i < n; i++)
-                dataGridView1[1, i+1].Value = RK.GetMetodInfos()[i].integr_step;
+                dataGridView1[1, i].Value = RK.GetMetodInfos()[i].integr_step;
 
-            dataGridView1[2, 0].Value = "half_v";
+            dataGridView1.Columns[2].HeaderText = "x_i";
             for (int i = 0; i < n; i++)
-                dataGridView1[2, i+1].Value = RK.GetMetodInfos()[i].half_V;
+                dataGridView1[2, i].Value = RK.GetMetodInfos()[i].point.X;
 
-            //и так далее для других выходных данных
-   
+            dataGridView1.Columns[3].HeaderText = "v_i";
+            for (int i = 0; i < n; i++)
+                dataGridView1[3, i].Value = RK.GetMetodInfos()[i].point.V;
+
+            dataGridView1.Columns[5].HeaderText = "S";
+            for (int i = 0; i < n; i++)
+                dataGridView1[5, i].Value = RK.GetMetodInfos()[i].S;
+
+            dataGridView1.Columns[6].HeaderText = "e";
+            for (int i = 0; i < n; i++)
+                dataGridView1[6, i].Value = RK.GetMetodInfos()[i].err_loc;
+
+            dataGridView1.Columns[7].HeaderText = "v_corr";
+            for (int i = 0; i < n; i++)
+                dataGridView1[7, i].Value = RK.GetMetodInfos()[i].corr_V;
+
+            dataGridView1.Columns[8].HeaderText = "Up_step";
+            for (int i = 0; i < n; i++)
+                dataGridView1[8, i].Value = RK.GetMetodInfos()[i].plus_corr_Step;
+
+            dataGridView1.Columns[9].HeaderText = "Down_step";
+            for (int i = 0; i < n; i++)
+                dataGridView1[9, i].Value = RK.GetMetodInfos()[i].minus_corr_Step;
+            cartesianChart1.Series.Add(new LineSeries
+            {
+                Title = "Численное решение",
+                Values = new ChartValues<ObservablePoint>(RK
+         .GetPoints()
+         .Select(_ => new ObservablePoint(_.X, _.V))),
+                PointGeometrySize = 5
+            });
+            copy = RK.GetPoints();
 
         }
 
-    
+        private void button2_Click(object sender, EventArgs e)
+        {
+            
+            TrueSolution true100 = new TrueSolution(copy,Convert.ToDouble(textBox1.Text), Convert.ToInt32(textBox3.Text),
+                Convert.ToDouble(textBox2.Text));
+            true100.BuildSolution();
+            dataGridView1.Columns[4].HeaderText = "u_i";
+            for (int i = 0; i < copy.Count; i++)
+            {
+                dataGridView1[4, i].Value = true100.GetPoints()[i].V;
+            }
+            cartesianChart1.Series.Add(new LineSeries
+            {
+                Title = "Точное решение",
+                Values = new ChartValues<ObservablePoint>(true100
+.GetPoints()
+.Select(_ => new ObservablePoint(_.X, _.V))),
+                PointGeometrySize = 5
+            });
+
+
+        }
     }
 }

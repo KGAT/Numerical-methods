@@ -14,12 +14,12 @@ namespace Lab1
         public double half_V;
         public double dV;
         public double S;
+        public double err_loc;
         public double corr_V;
-        //public double res_V;
         public int plus_corr_Step;
         public int minus_corr_Step;
 
-        public InfoTable(int _iter, double _integr_step, Point _point, double _half_V,
+        public InfoTable(int _iter, double _integr_step, Point _point, double _half_V,double _err_loc,
             double _dV, double _S, double _corr_V,  int _plus_corr_Step, int _minus_corr_Step)
         {
             iter = _iter;
@@ -28,6 +28,7 @@ namespace Lab1
             half_V = _half_V;
             dV = _dV;
             S = _S;
+            err_loc = _err_loc;
             corr_V = _corr_V;
            // res_V = _res_V;
             plus_corr_Step = _plus_corr_Step;
