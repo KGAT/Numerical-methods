@@ -33,8 +33,8 @@ namespace Lab1
             {
                 Title = "Время"
             });
+            cartesianChart1.Zoom = ZoomingOptions.Xy;
 
-            
 
         }
         List<Point> copy; 
