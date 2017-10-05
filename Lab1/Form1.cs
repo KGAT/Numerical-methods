@@ -55,6 +55,12 @@ namespace Lab1
             dataGridView1.RowCount = RK.GetMetodInfos().Count;
             dataGridView1.ColumnCount = 14;
 
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dataGridView1.AutoResizeColumns();
+            dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridView1.AutoResizeRows(DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders);
+
+
             int n = RK.GetMetodInfos().Count;
             dataGridView1.Columns[0].HeaderText = "№";
             for (int i = 0; i < n; i++)
@@ -144,6 +150,11 @@ namespace Lab1
         private void button3_Click(object sender, EventArgs e)
         {
             cartesianChart1.Series.Clear();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
