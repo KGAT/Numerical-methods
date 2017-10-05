@@ -32,7 +32,7 @@ namespace Lab1
             double x = points[0].X;
             double u = U0;
             points[0].V = u;
-            for (int i = 1; i < points.Count; i++) // ПОЬ ТОЧЕЧЕКА МСУЧЕЧКА
+            for (int i = 1; i < points.Count; i++) 
             {
                 x = points[i].X;
                 u = GetUValue(x);

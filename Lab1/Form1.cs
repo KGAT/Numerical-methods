@@ -54,7 +54,7 @@ namespace Lab1
             RK.Start();
 
             dataGridView1.RowCount = RK.GetMetodInfos().Count;
-            dataGridView1.ColumnCount = 10;
+            dataGridView1.ColumnCount = 11;
 
             int n = RK.GetMetodInfos().Count;
             dataGridView1.Columns[0].HeaderText = "№";
@@ -73,25 +73,25 @@ namespace Lab1
             for (int i = 0; i < n; i++)
                 dataGridView1[3, i].Value = RK.GetMetodInfos()[i].point.V;
 
-            dataGridView1.Columns[5].HeaderText = "S";
+            dataGridView1.Columns[6].HeaderText = "S";
             for (int i = 0; i < n; i++)
-                dataGridView1[5, i].Value = RK.GetMetodInfos()[i].S;
+                dataGridView1[6, i].Value = RK.GetMetodInfos()[i].S;
 
-            dataGridView1.Columns[6].HeaderText = "e";
+            dataGridView1.Columns[7].HeaderText = "e";
             for (int i = 0; i < n; i++)
-                dataGridView1[6, i].Value = RK.GetMetodInfos()[i].err_loc;
+                dataGridView1[7, i].Value = RK.GetMetodInfos()[i].err_loc;
 
-            dataGridView1.Columns[7].HeaderText = "v_corr";
+            dataGridView1.Columns[8].HeaderText = "v_corr";
             for (int i = 0; i < n; i++)
-                dataGridView1[7, i].Value = RK.GetMetodInfos()[i].corr_V;
+                dataGridView1[8, i].Value = RK.GetMetodInfos()[i].corr_V;
 
-            dataGridView1.Columns[8].HeaderText = "Up_step";
+            dataGridView1.Columns[9].HeaderText = "Up_step";
             for (int i = 0; i < n; i++)
-                dataGridView1[8, i].Value = RK.GetMetodInfos()[i].plus_corr_Step;
+                dataGridView1[9, i].Value = RK.GetMetodInfos()[i].plus_corr_Step;
 
-            dataGridView1.Columns[9].HeaderText = "Down_step";
+            dataGridView1.Columns[10].HeaderText = "Down_step";
             for (int i = 0; i < n; i++)
-                dataGridView1[9, i].Value = RK.GetMetodInfos()[i].minus_corr_Step;
+                dataGridView1[10, i].Value = RK.GetMetodInfos()[i].minus_corr_Step;
             cartesianChart1.Series.Add(new LineSeries
             {
                 Title = "Численное решение",
@@ -110,11 +110,14 @@ namespace Lab1
             TrueSolution true100 = new TrueSolution(copy,Convert.ToDouble(textBox1.Text), Convert.ToInt32(textBox3.Text),
                 Convert.ToDouble(textBox2.Text));
             true100.BuildSolution();
-            dataGridView1.Columns[4].HeaderText = "u_i";
+            dataGridView1.Columns[5].HeaderText = "u_i";
+            dataGridView1.Columns[4].HeaderText = "x_i";
             for (int i = 0; i < copy.Count; i++)
             {
-                dataGridView1[4, i].Value = true100.GetPoints()[i].V;
+                dataGridView1[4, i].Value = true100.GetPoints()[i].X;
+                dataGridView1[5, i].Value = true100.GetPoints()[i].V;
             }
+            
             cartesianChart1.Series.Add(new LineSeries
             {
                 Title = "Точное решение",
