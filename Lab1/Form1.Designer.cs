@@ -44,6 +44,9 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.textBox5 = new System.Windows.Forms.TextBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.cartesianChart1 = new LiveCharts.WinForms.CartesianChart();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -183,11 +186,29 @@
             this.textBox5.Size = new System.Drawing.Size(28, 20);
             this.textBox5.TabIndex = 15;
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(309, 103);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(522, 179);
+            this.dataGridView1.TabIndex = 16;
+            // 
+            // cartesianChart1
+            // 
+            this.cartesianChart1.Location = new System.Drawing.Point(309, 332);
+            this.cartesianChart1.Name = "cartesianChart1";
+            this.cartesianChart1.Size = new System.Drawing.Size(487, 127);
+            this.cartesianChart1.TabIndex = 17;
+            this.cartesianChart1.Text = "cartesianChart1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(902, 523);
+            this.ClientSize = new System.Drawing.Size(915, 523);
+            this.Controls.Add(this.cartesianChart1);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.textBox5);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label10);
@@ -206,6 +227,7 @@
             this.Controls.Add(this.label1);
             this.Name = "Form1";
             this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -229,6 +251,8 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private LiveCharts.WinForms.CartesianChart cartesianChart1;
     }
 }
 

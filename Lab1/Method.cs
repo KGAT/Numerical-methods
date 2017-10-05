@@ -16,8 +16,8 @@ namespace Lab1
         private double eps; //контроль шага
         private double eBorder; //контроль выхода на границу
         //Вообще ещё нужно, чтобы в ходе работы метода он выводил сразу в таблицу необходимые данные
-        private List<Point> points; //массив точек для отрисовки графика
-        private List<InfoTable> table_data; //массив данных таблицы
+        private List<Point> points= new List<Point>(); //массив точек для отрисовки графика
+        private List<InfoTable> table_data= new List<InfoTable>(); //массив данных таблицы
         private int step_counter; // Подсчёт шагов
         private int pluscorr_Step;
         private int minuscorr_Step;
@@ -115,7 +115,7 @@ namespace Lab1
 
         private double f(double x, double u)  //Вычисление правой части д.у
         {
-            return (-1.0*a*(u-T));
+            return (-1.0*a*(u-T)); // 2u; для проверки на домащшних примерах
         }
 
         public List<InfoTable> GetMetodInfos() //сделано
